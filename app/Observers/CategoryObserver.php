@@ -26,6 +26,6 @@ class CategoryObserver
      */
     public function updating(Category $category)
     {
-        //
+        $category->url = Str::slug($category->title, '-');
     }
 }

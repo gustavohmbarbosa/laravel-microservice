@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\{CreateCategoryRequest, UpdateCategoryRequest};
 use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
@@ -55,12 +54,15 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  string  $url
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCategoryRequest $request, $url)
     {
-        //
+        $category = $this->repository->where('url', $url)->firstOrFail();
+        $category->update($request->validated());
+
+        return response()->json(['message' => 'The category updated with success.']);
     }
 
     /**

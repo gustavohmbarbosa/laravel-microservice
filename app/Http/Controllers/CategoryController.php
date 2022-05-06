@@ -42,12 +42,13 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $url
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($url)
     {
-        //
+        $category = $this->repository->where('url', $url)->firstOrFail();
+        return (new CategoryResource($category));
     }
 
     /**

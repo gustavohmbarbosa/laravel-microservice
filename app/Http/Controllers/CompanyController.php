@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
+use Illuminate\Http\Request;
+use App\Http\Resources\CompanyResource;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
-use App\Http\Resources\CompanyResource;
-use App\Models\Company;
 
 class CompanyController extends Controller
 {
@@ -15,12 +16,14 @@ class CompanyController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
+     * 
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $companies = $this->repository->get();
+        $request->validate(['filter' => 'sometimes|string']);
+        $companies = $this->repository->getCompanies($request->get('filter', ''));
 
         return CompanyResource::collection($companies);
     }

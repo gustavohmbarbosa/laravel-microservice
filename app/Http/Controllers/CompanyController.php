@@ -41,12 +41,14 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Company  $company
+     * @param  string $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show($id)
     {
-        //
+        $company = $this->repository->findOrFail($id);
+
+        return new CompanyResource($company);
     }
 
     /**

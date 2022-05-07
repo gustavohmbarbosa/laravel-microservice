@@ -20,6 +20,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        $companies = $this->repository->get();
+
+        return CompanyResource::collection($companies);
     }
 
     /**

@@ -55,12 +55,15 @@ class CompanyController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateCompanyRequest  $request
-     * @param  \App\Models\Company  $company
+     * @param  string $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(UpdateCompanyRequest $request, $id)
     {
-        //
+        $company = $this->repository->findOrFail($id);
+        $company->update($request->validated());
+
+        return response()->json(['message' => 'The company was updated successfully.']);
     }
 
     /**

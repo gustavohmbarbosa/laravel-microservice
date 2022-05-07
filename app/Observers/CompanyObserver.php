@@ -27,6 +27,6 @@ class CompanyObserver
      */
     public function updating(Company $company)
     {
-        //
+        $company->url = Str::slug($company->name, '-');
     }
 }

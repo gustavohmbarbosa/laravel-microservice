@@ -9,10 +9,18 @@ class CategoryControllerTest extends TestCase
 {
     const ENDPOINT = 'categories';
 
+    protected Category $entity;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->entity = new Category();
+    }
+
     /** @test*/
     public function return_all_categories()
     {
-        Category::factory()->count(7)->create();
+        $this->entity->factory()->count(7)->create();
         $response = $this->getJson(self::ENDPOINT);
 
         $response->assertStatus(200);
@@ -24,5 +32,14 @@ class CategoryControllerTest extends TestCase
     {
         $response = $this->getJson(self::ENDPOINT . '/faker-url');
         $response->assertStatus(404);
+    }
+
+    /** @test*/
+    public function should_return_a_single_category()
+    {
+        $category = $this->entity->factory()->create();
+
+        $response = $this->getJson(self::ENDPOINT . "/{$category->url}");
+        $response->assertStatus(200);
     }
 }

@@ -87,4 +87,21 @@ class CategoryControllerTest extends TestCase
         $response->assertStatus(200);
         $this->assertDatabaseHas('categories', ['description' => 'updated']);
     }
+
+    /** @test*/
+    public function should_return_404_if_category_provided_to_delete_not_found()
+    {
+        $response = $this->deleteJson(self::ENDPOINT . '/faker-url');
+        $response->assertStatus(404);
+    }
+
+    /** @test*/
+    public function should_delete_a_category()
+    {
+        $category = $this->entity->factory()->create();
+
+        $response = $this->deleteJson(self::ENDPOINT . "/{$category->url}");
+        $response->assertStatus(204);
+        $this->assertDatabaseCount('categories', 0);
+    }
 }

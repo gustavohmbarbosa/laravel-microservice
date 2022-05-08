@@ -23,7 +23,7 @@ class UpdateCategoryRequest extends FormRequest
      */
     public function rules()
     {
-        $url = $this->segment(2);
+        $url = $this->category;
 
         return [
             'title' => "required|min:3|max:155|unique:categories,title,{$url},url",

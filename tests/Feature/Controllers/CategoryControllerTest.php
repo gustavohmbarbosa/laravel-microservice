@@ -63,4 +63,28 @@ class CategoryControllerTest extends TestCase
         $response->assertStatus(201);
         $this->assertDatabaseHas('categories', $category);
     }
+
+    /** @test*/
+    public function should_validate_the_category_update()
+    {
+        $category = $this->entity->factory()->create();
+        $category->title = 'updated';
+
+        $response = $this->putJson(self::ENDPOINT . "/faker-url", $category->toArray());
+        $response->assertStatus(404);
+
+        $response = $this->putJson(self::ENDPOINT . "/{$category->url}", []);
+        $response->assertStatus(422);
+    }
+
+    /** @test */
+    public function should_update_a_category_with_correct_values()
+    {
+        $category = $this->entity->factory()->create();
+        $category->description = 'updated';
+
+        $response = $this->putJson(self::ENDPOINT . "/{$category->url}", $category->toArray());
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('categories', ['description' => 'updated']);
+    }
 }

@@ -42,4 +42,25 @@ class CategoryControllerTest extends TestCase
         $response = $this->getJson(self::ENDPOINT . "/{$category->url}");
         $response->assertStatus(200);
     }
+
+    /** @test*/
+    public function should_validate_the_category_creation()
+    {
+        $response = $this->postJson(self::ENDPOINT, [
+            'title' => '',
+            'description' => ''
+        ]);
+
+        $response->assertStatus(422);
+    }
+
+    /** @test */
+    public function should_create_a_category_with_correct_values()
+    {
+        $category = $this->entity->factory()->make()->toArray();
+        $response = $this->postJson(self::ENDPOINT, $category);
+
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('categories', $category);
+    }
 }

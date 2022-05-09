@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c61ff82cbf0142a401a48a8161e1595a",
+    "content-hash": "c30d8bfa8ef0e33b655bfb943bd86915",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -633,6 +633,47 @@
                 }
             ],
             "time": "2021-11-21T21:41:47+00:00"
+        },
+        {
+            "name": "gustavohmbarbosa/microservices-common",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gustavohmbarbosa/microservices-common.git",
+                "reference": "627d5cb51e313a0daf54710c5dec024cee5e1422"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gustavohmbarbosa/microservices-common/zipball/627d5cb51e313a0daf54710c5dec024cee5e1422",
+                "reference": "627d5cb51e313a0daf54710c5dec024cee5e1422",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gustavohmbarbosa\\MicroservicesCommon\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gustavo Melo",
+                    "email": "gustavobarbosa-18@hotmail.com"
+                }
+            ],
+            "description": "Packages files utils for microservices",
+            "support": {
+                "issues": "https://github.com/gustavohmbarbosa/microservices-common/issues",
+                "source": "https://github.com/gustavohmbarbosa/microservices-common/tree/main"
+            },
+            "time": "2022-05-09T17:44:38+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -7903,7 +7944,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "gustavohmbarbosa/microservices-common": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

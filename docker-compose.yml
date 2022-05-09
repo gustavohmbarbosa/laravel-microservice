@@ -1,20 +1,22 @@
 version: "3.7"
 services: 
   # Microservice
-  laraservice:
+  app_companies:
     build: 
       args:
-        user: laraservice
+        user: app_companies
         uid: 1000
       context: ./
       dockerfile: Dockerfile 
     image: laravel-app
     restart: unless-stopped
+    depends_on:
+      - redis
     working_dir: /var/www/
     volumes: 
       - ./:/var/www
     networks: 
-      - microservices
+      - companies_service
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -29,10 +31,10 @@ services:
       - ./:/var/www
       - ./docker/nginx/:/etc/nginx/conf.d/
     networks: 
-      - microservices
+      - companies_service
 
-  # Database mysql laraservice
-  db_laraservice: 
+  # Database mysql companies
+  db_companies: 
     image: mysql:8.0.29
     restart: unless-stopped
     environment:
@@ -45,8 +47,32 @@ services:
     volumes: 
       - ./.docker/mysql/dbdata:/var/lib/mysql
     networks: 
-      - microservices
+      - companies_service
+
+  # Queue
+  queue:
+    build: 
+      args:
+        user: app_companies
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile 
+    restart: unless-stopped
+    command: "php artisan queue:work"
+    depends_on:
+      - redis
+    volumes: 
+      - ./:/var/www
+      - ./docker/nginx/:/etc/nginx/conf.d/
+    networks: 
+      - companies_service
+
+  # Redis
+  redis: 
+    image: redis:latest
+    networks:
+      - companies_service
 
 networks:
-  microservices: 
+  companies_service: 
     driver: bridge

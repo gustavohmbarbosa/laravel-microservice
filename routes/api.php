@@ -7,7 +7,7 @@ use App\Http\Controllers\{
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => response()->json(['message' => 'Microservice with Laravel']));
+Route::get('/', fn () => response()->json(['message' => __('messages.welcome')]));
 
 Route::apiResource('categories', CategoryController::class);
 

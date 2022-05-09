@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Services\EvaluationService;
 use App\Http\Resources\CompanyResource;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
-use App\Services\EvaluationService;
 
 class CompanyController extends Controller
 {

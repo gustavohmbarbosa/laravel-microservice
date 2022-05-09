@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Resources\CompanyResource;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use App\Services\EvaluationService;
 
 class CompanyController extends Controller
 {
-    public function __construct(protected Company $repository)
-    {
+    public function __construct(
+        protected Company $repository,
+        protected EvaluationService $service
+    ) {
     }
 
     /**
@@ -50,8 +53,11 @@ class CompanyController extends Controller
     public function show($id)
     {
         $company = $this->repository->findOrFail($id);
+        $evaluations = $this->service->getCompanyEvaluations($id);
 
-        return new CompanyResource($company);
+        return (new CompanyResource($company))->additional([
+            'evaluations' => $evaluations
+        ]);
     }
 
     /**

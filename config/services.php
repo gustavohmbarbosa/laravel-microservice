@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'evaluations' => [
+        'key' => env('EVALUATION_SERVICE_KEY'),
+        'url' => env('EVALUATION_SERVICE_URL')
+    ]
 ];
